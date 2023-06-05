@@ -4,25 +4,16 @@ import './App.css';
 import Header from "./layout/header";
 import axios from "axios";
 import Tasks from "./modules/tasks";
+import AppRoutes from './routes';
+import { IsAuthentificted } from 'services/isAuthentificated';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import { getUser } from 'store/reducers/user/ActionAuth';
 function App() {
-    const [tasks, setTasks] = useState([])
-    const fetchTasks = async () => {
-        const {data:Tasks}=await axios.get('http://127.0.0.1:8000/api/v1/tasks/', {
-            headers:{
-                'Authorization': 'Token d19f04f4206816f062a0cd4e65af91144a5219ac'
-            }
-        })
-        setTasks(Tasks)
-    }
-
-    useEffect(()=>{
-        fetchTasks()
-    }, [])
+  
   return (
     <div className="App">
       <Header/>
-    <div style={{marginTop:'20px'}}>
-        <Tasks tasks={tasks}/>    </div>
+      <AppRoutes/>
     </div>
   );
 }
