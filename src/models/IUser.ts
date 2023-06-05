@@ -5,5 +5,6 @@ export interface IUser {
     username?: string;
     email?: string;
     token?: string;
-    roles?: IRole[]
+    roles?: IRole[];
+    image?:string
 }

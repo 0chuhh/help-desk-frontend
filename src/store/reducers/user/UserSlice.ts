@@ -21,7 +21,7 @@ export const userSlice = createSlice({
         userFetching(state){
             state.isLoading = true;
         },
-        userFetchingSuccess(state, action: PayloadAction<IUser>){
+        userFetchingSuccess(state, action: PayloadAction<IUser | null>){
             state.isLoading = false;
             state.error = ''
             state.user = action.payload

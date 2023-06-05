@@ -24,3 +24,13 @@ export const getUser = () => async (dispatch:AppDispatch) => {
         dispatch(userSlice.actions.userFetchingError((error as Error).message))
     }
 }
+
+export const logOutUser = () => async (dispatch:AppDispatch) => {
+    try {
+        dispatch(userSlice.actions.userFetching())
+        Cookies.remove('token')
+        dispatch(userSlice.actions.userFetchingSuccess(null))
+    } catch (error) {
+        dispatch(userSlice.actions.userFetchingError((error as Error).message))
+    }
+}

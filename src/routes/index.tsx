@@ -2,11 +2,12 @@ import React from "react";
 import { Routes, Route } from "react-router";
 import PrivateRoute from "./private-route";
 import Login from "pages/login";
+import Home from "../pages/home";
 export default function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<PrivateRoute>
-        <div>hui</div>
+        <Home/>
       </PrivateRoute>} />
       <Route path="/login" element={<Login/>} />
       <Route
