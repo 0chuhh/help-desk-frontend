@@ -3,6 +3,8 @@ import { Routes, Route } from "react-router";
 import PrivateRoute from "./private-route";
 import Login from "pages/login";
 import Home from "../pages/home";
+import FAQ from "pages/FAQ";
+import CreateFAQ from "pages/createFAQ";
 export default function AppRoutes() {
   return (
     <Routes>
@@ -30,7 +32,15 @@ export default function AppRoutes() {
         path="/frequently-asked-questions"
         element={
           <PrivateRoute>
-            <div></div>
+            <FAQ/>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/create-frequently-asked-questions"
+        element={
+          <PrivateRoute>
+            <CreateFAQ/>
           </PrivateRoute>
         }
       />

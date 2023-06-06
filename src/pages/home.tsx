@@ -5,7 +5,7 @@ import SideFAQ from "../modules/sideFAQ";
 
 function Home() {
     return (
-        <div style={{padding: '150px 70px'}}>
+        <div className='container'>
             <SideFAQ/>
             <div className="description" style={{padding: '10px', display:'flex', gap:'20px'}}>
                 <div className="image">

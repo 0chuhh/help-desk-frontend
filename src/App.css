@@ -1,3 +1,7 @@
 .App, #root, body, html {
   height: 100%;
 }
+
+.container{
+  padding: 150px 70px;
+}

@@ -1,6 +1,7 @@
+import { IFAQ } from "models/IFAQ";
 import axios from "../axios";
 
 const endpoints = {
-    getFAQ: () => axios.get('faq/')
+    getFAQ: () => axios.get<IFAQ[]>('faq/').then(response=>response.data)
 }
 export default endpoints

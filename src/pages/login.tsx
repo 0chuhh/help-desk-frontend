@@ -14,10 +14,9 @@ function Login() {
     const [password, setPassword] = useState<string>('admin')
 
     const signIn = () => {
-        dispatch(signInUser(login, password))
-        setTimeout(()=>{
+        dispatch(signInUser(login, password)).then(()=>{
             navigate('/')
-        },100)
+        })
     }
 
     return (
