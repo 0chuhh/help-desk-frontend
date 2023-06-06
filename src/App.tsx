@@ -7,7 +7,6 @@ import Tasks from "./modules/tasks";
 import AppRoutes from './routes';
 import { IsAuthentificted } from 'services/isAuthentificated';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
-import "react-quill/dist/quill.snow.css";
 import { getUser } from 'store/reducers/user/ActionAuth';
 function App() {
   

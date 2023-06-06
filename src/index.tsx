@@ -6,6 +6,8 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
 import { setupStore } from "store";
 import 'katex/dist/katex.min.css';
+import "react-quill/dist/quill.snow.css";
+
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,

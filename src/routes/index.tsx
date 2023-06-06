@@ -5,6 +5,7 @@ import Login from "pages/login";
 import Home from "../pages/home";
 import FAQ from "pages/FAQ";
 import CreateFAQ from "pages/createFAQ";
+import FAQdetails from "pages/FAQdetails";
 export default function AppRoutes() {
   return (
     <Routes>
@@ -33,6 +34,14 @@ export default function AppRoutes() {
         element={
           <PrivateRoute>
             <FAQ/>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/frequently-asked-questions/:id"
+        element={
+          <PrivateRoute>
+            <FAQdetails/>
           </PrivateRoute>
         }
       />
