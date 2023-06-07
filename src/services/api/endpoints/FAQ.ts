@@ -3,6 +3,11 @@ import axios from "../axios";
 
 const endpoints = {
     getFAQ: () => axios.get<IFAQ[]>('faq/').then(response=>response.data),
-    getFAQbyId: (id:number) => axios.get<IFAQ>(`faq/${id}/`).then(response=>response.data)
+    getFAQbyId: (id:number) => axios.get<IFAQ>(`faq/${id}/`).then(response=>response.data),
+    postFAQ:(faq:IFAQ) => axios.post<IFAQ>('faq/',faq,{
+        headers:{
+            'Content-Type':'application/json'
+        }
+    }).then(response=>response.data),
 }
 export default endpoints

@@ -17,6 +17,12 @@ const FAQdetails = () => {
     },[])
   return (
     <div className='container'>
+        <h1 style={{
+          textAlign:'center'
+        }}>{FAQ?.name}</h1>
+        <h3>Описание:</h3>
+        <div>{FAQ?.description}</div>
+        <h3>Решение:</h3>
         <div className="view ql-editor" dangerouslySetInnerHTML={{__html: FAQ?.html ? FAQ.html:''}}></div>
     </div>
   )

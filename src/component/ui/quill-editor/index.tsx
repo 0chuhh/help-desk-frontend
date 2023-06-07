@@ -59,6 +59,7 @@ interface EditorProps {
 const Editor: FC<EditorProps> = ({ value, onChange }) => {
   return (
     <ReactQuill
+      
       value={value}
       onChange={onChange}
       theme="snow"

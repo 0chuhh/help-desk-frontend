@@ -6,6 +6,7 @@ import { IType } from "models/IType";
 import MyAccordion from "component/ui/my-accordion";
 import { Link } from "react-router-dom";
 function SideFaq() {
+
   const [FAQs, setFAQs] = useState<IFAQ[]>([]);
   const [types, setTypes] = useState<IType[]>([]);
   const [open, setOpen] = useState<string>('');

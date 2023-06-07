@@ -1,5 +1,5 @@
 export interface IFAQ{
-    id:number,
+    id?:number,
     name:string,
     description?:string,
     resolved_task?:number[],
