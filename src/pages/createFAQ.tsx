@@ -6,15 +6,18 @@ import Gap from "component/ui/gap";
 import Editor from "component/ui/quill-editor";
 import { useAppDispatch, useAppSelector } from "hooks/redux";
 import { IType } from "models/IType";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { SelectChangeEvent } from "@mui/material/Select";
 import { fetchTypes } from "store/reducers/types/ActionGetTypes";
 import { IFAQ } from "models/IFAQ";
 import { useNavigate } from "react-router";
+import CustomFileInput from "component/ui/custom-file-input";
+import FileList from "component/ui/file-list";
 const CreateFAQ = () => {
   
   const navigate = useNavigate()
-  
+  const [droppedFiles, setDroppedFiles] = useState<File[]>([]);
+
   const [html, setHtml] = useState<string>("");
   const [types, setTypes] = useState<IType[]>([]);
   const [selectedType, setSelectedType] = useState<unknown>('');
@@ -50,6 +53,18 @@ const CreateFAQ = () => {
     
   }
 
+
+  const handleFileDrop = useCallback(
+    (item: { files: any[] }) => {
+      if (item) {
+        const files = item.files;
+        setDroppedFiles(prev=>[...prev, ...files]);
+        console.log(item, "files");
+      }
+    },
+    [setDroppedFiles]
+  );
+  
   useEffect(()=>{
     getTypes()
   },[])
@@ -81,6 +96,9 @@ const CreateFAQ = () => {
       </CustomSelect>
       <Gap />
       <Editor value={html} onChange={handleChangeHtml} />
+      <Gap/>
+      <CustomFileInput onDrop={handleFileDrop}/>
+      <FileList files={droppedFiles}/>
     </div>
   );
 };

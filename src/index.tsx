@@ -5,12 +5,13 @@ import App from "./App";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
 import { setupStore } from "store";
-import 'katex/dist/katex.min.css';
+import "katex/dist/katex.min.css";
 import "react-quill/dist/quill.snow.css";
-
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement,
+  document.getElementById("root") as HTMLElement
 );
 
 const store = setupStore();
@@ -18,7 +19,9 @@ const store = setupStore();
 root.render(
   <Provider store={store}>
     <Router>
-      <App />
+      <DndProvider backend={HTML5Backend}>
+        <App />
+      </DndProvider>
     </Router>
   </Provider>
 );

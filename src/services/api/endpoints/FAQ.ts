@@ -1,4 +1,4 @@
-import { IFAQ } from "models/IFAQ";
+import { IFAQ, IFAQFile } from "models/IFAQ";
 import axios from "../axios";
 
 const endpoints = {
@@ -9,5 +9,6 @@ const endpoints = {
             'Content-Type':'application/json'
         }
     }).then(response=>response.data),
+    getFAQfilesByFAQId: (id:number) => axios.get<IFAQFile[]>(`faq-files/${id}/by_faq/`).then(response=>response.data),
 }
 export default endpoints

@@ -65,10 +65,11 @@ function SideFaq() {
       <div className="tasks" style={{ width: "100%", height: "100%", overflowY:'auto',
         overflowX:'hidden' }}>
         {types.map((type) => (
-          <MyAccordion title={type.name} handleChange={(e)=>handleChange(type.name)} expanded={type.name === open}>
+          <MyAccordion key={'type'+type.id} title={type.name} handleChange={(e)=>handleChange(type.name)} expanded={type.name === open}>
             {FAQs.map((item) => (
               item.type === type.id &&
               <div
+              key={'faq'+item.id}
                 style={{
                   width: "100%",
                   height: "20px",
