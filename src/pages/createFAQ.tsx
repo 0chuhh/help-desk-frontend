@@ -64,6 +64,10 @@ const CreateFAQ = () => {
     },
     [setDroppedFiles]
   );
+
+  const handleDeleteFile = (file:File)=>{
+    setDroppedFiles(droppedFiles.filter(fileEl=>fileEl!==file))
+  }
   
   useEffect(()=>{
     getTypes()
@@ -98,7 +102,7 @@ const CreateFAQ = () => {
       <Editor value={html} onChange={handleChangeHtml} />
       <Gap/>
       <CustomFileInput onDrop={handleFileDrop}/>
-      <FileList files={droppedFiles}/>
+      <FileList files={droppedFiles} onDelete={handleDeleteFile}/>
     </div>
   );
 };
