@@ -119,12 +119,24 @@ function Header() {
                   display: { xs: "block", md: "none" },
                 }}
               >
-                <Link to={"/frequently-asked-questions"}>
+                <Link
+                  style={{
+                    textDecoration: "none",
+                    color: "#000",
+                  }}
+                  to={"/frequently-asked-questions"}
+                >
                   <MenuItem>
                     <Typography textAlign="center">База знаний</Typography>
                   </MenuItem>
                 </Link>
-                <Link to={"/tasks"}>
+                <Link
+                  style={{
+                    textDecoration: "none",
+                    color: "#000",
+                  }}
+                  to={"/tasks"}
+                >
                   <MenuItem>
                     <Typography textAlign="center">Заявки</Typography>
                   </MenuItem>

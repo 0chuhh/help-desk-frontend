@@ -10,6 +10,7 @@ import FileLinkList from 'component/ui/file-link-list';
 const FAQdetails = () => {
     const {id} = useParams()
     const [FAQ, setFAQ] = useState<IFAQ>()
+    const [files, setFiles] = useState([])
     const getFAQbyId = async () => {
         const faq:IFAQ = await api.faq.getFAQbyId(Number(id))
         const faqfiles:IFAQFile[] = await api.faq.getFAQfilesByFAQId(Number(id))

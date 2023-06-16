@@ -6,7 +6,7 @@ import Gap from "component/ui/gap";
 import Editor from "component/ui/quill-editor";
 import { useAppDispatch, useAppSelector } from "hooks/redux";
 import { IType } from "models/IType";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { FormEvent, useCallback, useEffect, useState } from "react";
 import { SelectChangeEvent } from "@mui/material/Select";
 import { fetchTypes } from "store/reducers/types/ActionGetTypes";
 import { IFAQ } from "models/IFAQ";
@@ -47,9 +47,15 @@ const CreateFAQ = () => {
   };
 
 
-  const createNewFAQ = async () => {
-    const faq:IFAQ = await api.faq.postFAQ({name, description, html, type:Number(selectedType)})
-    navigate(`/frequently-asked-questions/${faq.id}`)
+   const createNewFAQ:React.FormEventHandler<HTMLFormElement> = async (event) => {
+    event.preventDefault()
+    const faq:IFAQ = await api.faq.postFAQ({name, description, html, type:Number(selectedType)});
+    const formData = new FormData();
+    droppedFiles.forEach(file => {
+      formData.append("file", file) // check this out for more info: https://developer.mozilla.org/en-US/docs/Web/API/FormData/append#example
+   });
+   if(faq.id) await api.faq.postFAQfilesByFAQId(faq.id, formData);
+  //  navigate(`/frequently-asked-questions/${faq.id}`);
     
   }
 
@@ -74,9 +80,11 @@ const CreateFAQ = () => {
   },[])
   return (
     <div className="container">
-      <Button onClick={createNewFAQ} variant="contained">Создать</Button>
+      <form  onSubmit={createNewFAQ}>
+      <Button type="submit" variant="contained">Создать</Button>
       <Gap />
       <CustomInput
+        required
         onChange={handleChangeName}
         value={name}
         fullWidth
@@ -84,6 +92,7 @@ const CreateFAQ = () => {
       />
       <Gap />
       <CustomInput
+        required
         onChange={handleChangeDescription}
         value={description}
         multiline
@@ -91,7 +100,7 @@ const CreateFAQ = () => {
         label={"Описание"}
       />
       <Gap />
-      <CustomSelect value={selectedType} onChange={handleChangeSelect} fullWidth label="Категория">
+      <CustomSelect required value={selectedType} onChange={handleChangeSelect} fullWidth label="Категория">
         {
           types?.map(type=>
               <MenuItem key={type?.id} value={type?.id}>{type?.name}</MenuItem>
@@ -103,6 +112,7 @@ const CreateFAQ = () => {
       <Gap/>
       <CustomFileInput onDrop={handleFileDrop}/>
       <FileList files={droppedFiles} onDelete={handleDeleteFile}/>
+      </form>
     </div>
   );
 };

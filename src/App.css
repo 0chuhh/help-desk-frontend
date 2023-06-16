@@ -3,7 +3,7 @@
 }
 
 .container{
-  padding: 150px 70px;
+  padding: 115px 70px 0;
 }
 
 .ql-editor{
@@ -28,3 +28,10 @@
 .drop-hovered{
   border:1px solid blue !important
 } 
+
+.tab-secondary-text-color{
+  color:#fff !important
+}
+.selected-tab{
+  color:#f90 !important
+}

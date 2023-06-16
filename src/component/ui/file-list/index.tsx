@@ -23,6 +23,7 @@ const FileList: FC<FileListProps> = ({ files, onDelete = () => {} }) => {
       style={{
         display: "flex",
         alignItems: "center",
+        flexWrap:'wrap',
         gap: "20px",
       }}
     >
@@ -38,7 +39,7 @@ const FileList: FC<FileListProps> = ({ files, onDelete = () => {} }) => {
             setIsHovered(false);
           }}
           className="file-item"
-          style={{ display: "flex", alignItems: "center" }}
+          style={{ display: "flex", alignItems: "center", }}
         >
           <Button key={index}>
             <FileCopyIcon />

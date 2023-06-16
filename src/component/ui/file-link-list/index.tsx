@@ -12,8 +12,8 @@ const FileLinkList:FC<FileLinkListProps> = ({files}) => {
   return (
     <div>
         {
-        files?.map(file=>
-            <Link to={`http://localhost:8000${file.file}`}>
+        files?.map((file, index)=>
+            <Link key={file.name+index} to={`http://localhost:8000${file.file}`}>
               <Button>
                 <FileCopyIcon/>
                 {file.name}.{file.file.split('.')[file.file.split('.').length-1]}
