@@ -1,6 +1,7 @@
 import React, { FC, PropsWithChildren, useEffect } from "react";
 import Tabs from "@mui/material/Tabs";
 import Box from "@mui/material/Box";
+import { Button } from "@mui/material";
 
 interface TabPanelProps
   extends PropsWithChildren,
@@ -31,11 +32,9 @@ export const TabPanel: FC<TabPanelProps> = React.memo(({
       }}
       {...restProps}
     >
-      {value === index && (
         <Box sx={{ p: 3,height:'100%',flexGrow:1,gap:'20px', boxSizing:'border-box', overflow:'auto' }}>
           {children}
         </Box>
-      )}
     </div>
   );
 })
@@ -54,7 +53,7 @@ export const TabsVertical:FC<TabsVerticalProps> = React.memo(({value, handleChan
         variant="scrollable"
         TabIndicatorProps={{
             style:{
-                backgroundColor:'#f90'
+                backgroundColor:'#f90',
             }
         }}
         value={value}
@@ -62,8 +61,9 @@ export const TabsVertical:FC<TabsVerticalProps> = React.memo(({value, handleChan
             backgroundColor:"#252525",
             color:'white',
             backgroundClip:'border-box',
-            transition:'all 0.5s ease'
-        }}
+            transition:'all 0.5s ease',
+            maxWidth:'250px'
+          }}
         textColor="secondary"
         onChange={handleChange}
         aria-label="Vertical tabs example"

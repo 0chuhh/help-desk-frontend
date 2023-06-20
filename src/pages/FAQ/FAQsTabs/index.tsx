@@ -8,11 +8,16 @@ import { IFAQ } from "models/IFAQ";
 import { IType } from "models/IType";
 import api from "services/api";
 import TabsLabels from "./tabsLabels";
+import CreateFAQTypeModal from "./createFAQTypeModal";
 
 const FAQsTabs = () => {
   const [FAQs, setFAQs] = useState<IFAQ[]>([]);
   const [types, setTypes] = useState<IType[]>([]);
   const [currentTab, setCurrentTab] = useState<number>(1);
+  const [isModalShowed, setIsModalShowed] = useState<boolean>(false);
+
+  const openModal = () => setIsModalShowed(true);
+  const closeModal = () => setIsModalShowed(false);
 
   const getFAQ = async () => {
     const FAQresponse: IFAQ[] = await api.faq.getFAQ();
@@ -24,8 +29,15 @@ const FAQsTabs = () => {
     setTypes(typesResponse);
   };
 
-  const handleChangeTab = (event: React.SyntheticEvent, newValue: number) => {
-    setCurrentTab(newValue);
+  const onCreateType = (type: IType) => {
+    setTypes((prevTypes) => [...prevTypes, type]);
+  };
+
+  const handleChangeTab = (
+    event: React.SyntheticEvent,
+    newValue: number | string
+  ) => {
+    if (typeof newValue !== "string") setCurrentTab(newValue);
   };
 
   useEffect(() => {
@@ -37,6 +49,7 @@ const FAQsTabs = () => {
     <CustomVerticalTabs
       labels={
         <TabsLabels
+          onAddButtonClick={openModal}
           labels={types}
           value={currentTab}
           handleChange={handleChangeTab}
@@ -44,22 +57,25 @@ const FAQsTabs = () => {
       }
     >
       {types.map((type, index) => (
-        <TabPanel key={type.id+'tabPanel'} index={type.id} value={currentTab}>
-          {FAQs.map(
-            (faq) =>
-              currentTab === faq.type && (
-                <CustomCard
-                  key={faq.id+'faq'}
-                  style={{ margin: "20px 0" }}
-                  button={{ label: "hello" }}
-                >
-                  {faq.name}
-                  <div>{faq.description}</div>
-                </CustomCard>
-              )
-          )}
+        <TabPanel key={type.id + "tabPanel"} index={type.id} value={currentTab}>
+          {FAQs.filter((faq) => faq.type === type.id).map((faq) => (
+            <CustomCard
+              key={faq.id + "faq"}
+              style={{ margin: "20px 0" }}
+              button={{ label: "hello" }}
+            >
+              {faq.name}
+              <div>{faq.description}</div>
+            </CustomCard>
+          ))}
         </TabPanel>
       ))}
+
+      <CreateFAQTypeModal
+        open={isModalShowed}
+        handleClose={closeModal}
+        onCreate={onCreateType}
+      />
     </CustomVerticalTabs>
   );
 };
