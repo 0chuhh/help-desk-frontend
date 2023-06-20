@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router";
 import PrivateRoute from "./private-route";
 import Login from "pages/login";
 import Home from "../pages/home";
-import FAQ from "pages/FAQ";
+import FAQ from "pages/FAQ/";
 import CreateFAQ from "pages/createFAQ";
 import FAQdetails from "pages/FAQdetails";
 export default function AppRoutes() {

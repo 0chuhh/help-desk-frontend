@@ -1,7 +1,5 @@
-import React, { FC, PropsWithChildren } from "react";
+import React, { FC, PropsWithChildren, useEffect } from "react";
 import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
 interface TabPanelProps
@@ -14,12 +12,13 @@ interface TabPanelProps
   value: number;
 }
 
-export const TabPanel: FC<TabPanelProps> = ({
+export const TabPanel: FC<TabPanelProps> = React.memo(({
   index,
   value,
   children,
   ...restProps
 }) => {
+  
   return (
     <div
       role="tabpanel"
@@ -39,41 +38,18 @@ export const TabPanel: FC<TabPanelProps> = ({
       )}
     </div>
   );
-};
+})
 
-function a11yProps(index: number) {
-  return {
-    id: `vertical-tab-${index}`,
-    "aria-controls": `vertical-tabpanel-${index}`,
-  };
-}
-
-interface CustomVerticalTabsProps extends PropsWithChildren {
+export interface TabsVerticalProps extends PropsWithChildren {
   value?: number;
   handleChange?: (event: React.SyntheticEvent, newValue: number) => void;
-  labels: string[];
 }
 
-export const CustomVerticalTabs: FC<CustomVerticalTabsProps> = ({
-  value,
-  handleChange,
-  labels,
-  children,
-}) => {
-  return (
-    <Box
-      sx={{
-        flexGrow: 1,
-        bgcolor: "background.paper",
-        display: "flex",
-        height:'70vh',
-        borderRadius:'10px',
-        boxShadow:'0px 0px 5px lightgray',
-        boxSizing:'border-box',
-        overflow:'hidden'
-      }}
-    >
-      <Tabs
+
+export const TabsVertical:FC<TabsVerticalProps> = React.memo(({value, handleChange, children}) => {
+
+  return(
+    <Tabs
         orientation="vertical"
         variant="scrollable"
         TabIndicatorProps={{
@@ -93,13 +69,41 @@ export const CustomVerticalTabs: FC<CustomVerticalTabsProps> = ({
         aria-label="Vertical tabs example"
         sx={{ borderRight: 1, borderColor: "divider", }}
       >
-        {labels.map((label, index) => (
-          <Tab classes={{
-            'selected':'selected-tab',
-            'textColorSecondary':'tab-secondary-text-color'
-          }} key={label + index} label={label} {...a11yProps(index)} />
-        ))}
+        {children}
       </Tabs>
+  )
+})
+
+export function a11yProps(index: number) {
+  return {
+    id: `vertical-tab-${index}`,
+    "aria-controls": `vertical-tabpanel-${index}`,
+  };
+}
+
+interface CustomVerticalTabsProps extends PropsWithChildren {
+
+  labels: React.ReactNode;
+}
+
+export const CustomVerticalTabs: FC<CustomVerticalTabsProps> = ({
+  labels,
+  children,
+}) => {
+  return (
+    <Box
+      sx={{
+        flexGrow: 1,
+        bgcolor: "background.paper",
+        display: "flex",
+        height:'70vh',
+        borderRadius:'10px',
+        boxShadow:'0px 0px 5px lightgray',
+        boxSizing:'border-box',
+        overflow:'hidden'
+      }}
+    >
+      {labels}
       {children}
     </Box>
   );

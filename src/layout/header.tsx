@@ -195,7 +195,7 @@ function Header() {
                     alt="Remy Sharp"
                     src={"http://localhost:8000" + user.image}
                   />
-                  <Typography color={"white"}>{user.username}</Typography>
+                  <Typography color={"white"}>{user.fullname}</Typography>
                 </IconButton>
               </Tooltip>
               <Menu
