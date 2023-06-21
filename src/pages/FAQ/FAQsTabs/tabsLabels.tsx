@@ -7,7 +7,7 @@ import {
 } from "component/ui/custom-vertical-tabs";
 import { IType } from "models/IType";
 import AddIcon from "@mui/icons-material/Add";
-import { IconButton } from "@mui/material";
+import useStaffStatus from "hooks/useStaffStatus";
 interface TabsLabelsProps extends TabsVerticalProps {
   onAddButtonClick?: () => void;
   labels: IType[];
@@ -17,25 +17,26 @@ const TabsLabels: FC<TabsLabelsProps> = ({
   onAddButtonClick,
   ...restProps
 }) => {
+  const isStaff = useStaffStatus() 
   return (
     <TabsVertical {...restProps}>
-      {labels.length && (
-        <Tab
-          onClick={onAddButtonClick}
-          style={{
-            fontSize: "0.7rem",
-          }}
-          classes={{
-            selected: "selected-tab",
-            textColorSecondary: "tab-secondary-text-color",
-          }}
-          icon={<AddIcon fontSize="small" />}
-          label="Добавить"
-          key={"add"}
-          value={"add"}
-          {...a11yProps(0)}
-        />
-      )}
+        {isStaff && labels.length && (
+          <Tab
+            onClick={onAddButtonClick}
+            style={{
+              fontSize: "0.7rem",
+            }}
+            classes={{
+              selected: "selected-tab",
+              textColorSecondary: "tab-secondary-text-color",
+            }}
+            icon={<AddIcon fontSize="small" />}
+            label="Добавить"
+            key={"add"}
+            value={"add"}
+            {...a11yProps(0)}
+          />
+        )}
       {labels.map((label, index) => (
         <Tab
           classes={{
