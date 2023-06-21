@@ -35,7 +35,6 @@ const CustomModal: FC<CustomModalProps> = ({
             onClick={handleClose}
             style={{
               backgroundColor: "#fff",
-              border: "2px solid #000",
             }}
           >
             <CloseIcon fontSize="small" />
@@ -48,7 +47,6 @@ const CustomModal: FC<CustomModalProps> = ({
             left: "50%",
             minWidth: 400,
             bgcolor: "background.paper",
-            border: "2px solid #000",
             borderRadius: "10px",
             boxShadow: 24,
             p: 4,
