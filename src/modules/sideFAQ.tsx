@@ -9,7 +9,7 @@ function SideFaq() {
 
   const [FAQs, setFAQs] = useState<IFAQ[]>([]);
   const [types, setTypes] = useState<IType[]>([]);
-  const [open, setOpen] = useState<string>('');
+  const [open, setOpen] = useState<string | number>('');
   const getFAQ = async () => {
     const FAQresponse: IFAQ[] = await api.faq.getFAQ();
     setFAQs(FAQresponse);
@@ -20,7 +20,7 @@ function SideFaq() {
     setTypes(typesResponse);
   };
 
-  const handleChange = (value:string) => {
+  const handleChange = (value:string|number) => {
     if(value === open){
         setOpen('')
     }else{
@@ -65,7 +65,7 @@ function SideFaq() {
       <div className="tasks" style={{ width: "100%", height: "100%", overflowY:'auto',
         overflowX:'hidden' }}>
         {types.map((type) => (
-          <MyAccordion key={'type'+type.id} title={type.name} handleChange={(e)=>handleChange(type.name)} expanded={type.name === open}>
+          <MyAccordion key={'type'+type.id} title={type.name} handleChange={(e)=>handleChange(type.id)} expanded={type.id === open}>
             {FAQs.map((item) => (
               item.type === type.id &&
               <div
