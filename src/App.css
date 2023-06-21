@@ -46,3 +46,19 @@
 .selected-tab{
   color:#f90 !important
 }
+
+.h-center, .v-center, .column{
+  display: flex;
+}
+
+.h-center{
+  justify-content: center;
+}
+
+.v-center{
+  align-items: center;
+}
+
+.column{
+  flex-direction: column;
+}
