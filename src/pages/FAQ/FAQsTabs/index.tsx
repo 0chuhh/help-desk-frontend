@@ -9,8 +9,16 @@ import { IType } from "models/IType";
 import api from "services/api";
 import TabsLabels from "./tabsLabels";
 import CreateFAQTypeModal from "./createFAQTypeModal";
+import CustomInput from "component/ui/custom-input";
+import SearchIcon from "@mui/icons-material/Search";
+import { Button } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import Gap from "component/ui/gap";
+import useStaffStatus from "hooks/useStaffStatus";
 
 const FAQsTabs = () => {
+  const isStaff = useStaffStatus();
+
   const [FAQs, setFAQs] = useState<IFAQ[]>([]);
   const [types, setTypes] = useState<IType[]>([]);
   const [currentTab, setCurrentTab] = useState<number>(1);
@@ -47,9 +55,43 @@ const FAQsTabs = () => {
 
   return (
     <CustomVerticalTabs
+      beforeLabels={
+        <>
+          <CustomInput
+            placeholder="поиск..."
+            size="small"
+            style={{
+              color: "#fff",
+            }}
+            InputProps={{
+              startAdornment: <SearchIcon />,
+              style: {
+                color: "#fff",
+                fontSize: "0.8rem",
+                backgroundColor: "#000",
+                borderColor: "#fff",
+              },
+            }}
+          />
+          <Gap />
+          {isStaff && (
+            <Button
+              onClick={openModal}
+              variant="contained"
+              style={{
+                fontSize: "0.7rem",
+                color: "#fff",
+                backgroundColor:'#f90'
+              }}
+              endIcon={<AddIcon />}
+            >
+              Добавить
+            </Button>
+          )}
+        </>
+      }
       labels={
         <TabsLabels
-          onAddButtonClick={openModal}
           labels={types}
           value={currentTab}
           handleChange={handleChangeTab}
@@ -62,7 +104,10 @@ const FAQsTabs = () => {
             <CustomCard
               key={faq.id + "faq"}
               style={{ margin: "20px 0" }}
-              button={{ label: "hello" }}
+              button={{
+                label: "подробнее",
+                link: `/frequently-asked-questions/${faq.id}`,
+              }}
             >
               {faq.name}
               <div>{faq.description}</div>

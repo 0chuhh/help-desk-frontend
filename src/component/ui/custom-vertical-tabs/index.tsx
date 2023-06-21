@@ -1,7 +1,7 @@
 import React, { FC, PropsWithChildren, useEffect } from "react";
 import Tabs from "@mui/material/Tabs";
 import Box from "@mui/material/Box";
-import { Button } from "@mui/material";
+
 
 interface TabPanelProps
   extends PropsWithChildren,
@@ -13,66 +13,73 @@ interface TabPanelProps
   value: number;
 }
 
-export const TabPanel: FC<TabPanelProps> = React.memo(({
-  index,
-  value,
-  children,
-  ...restProps
-}) => {
-  
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`vertical-tabpanel-${index}`}
-      aria-labelledby={`vertical-tab-${index}`}
-      style={{
-        width:'100%',
-        height:'100%',
-      }}
-      {...restProps}
-    >
-        <Box sx={{ p: 3,height:'100%',flexGrow:1,gap:'20px', boxSizing:'border-box', overflow:'auto' }}>
+export const TabPanel: FC<TabPanelProps> = React.memo(
+  ({ index, value, children, ...restProps }) => {
+    return (
+      <div
+        role="tabpanel"
+        hidden={value !== index}
+        id={`vertical-tabpanel-${index}`}
+        aria-labelledby={`vertical-tab-${index}`}
+        style={{
+          width: "100%",
+          height: "100%",
+        }}
+        {...restProps}
+      >
+        <Box
+          sx={{
+            p: 3,
+            height: "100%",
+            flexGrow: 1,
+            gap: "20px",
+            boxSizing: "border-box",
+            overflow: "auto",
+          }}
+        >
           {children}
         </Box>
-    </div>
-  );
-})
+      </div>
+    );
+  }
+);
 
 export interface TabsVerticalProps extends PropsWithChildren {
   value?: number;
   handleChange?: (event: React.SyntheticEvent, newValue: number) => void;
 }
 
-
-export const TabsVertical:FC<TabsVerticalProps> = React.memo(({value, handleChange, children}) => {
-
-  return(
-    <Tabs
+export const TabsVertical: FC<TabsVerticalProps> = React.memo(
+  ({ value, handleChange, children }) => {
+    return (
+      <Tabs
         orientation="vertical"
         variant="scrollable"
         TabIndicatorProps={{
-            style:{
-                backgroundColor:'#f90',
-            }
+          style: {
+            backgroundColor: "#f90",
+          },
         }}
         value={value}
         style={{
-            backgroundColor:"#252525",
-            color:'white',
-            backgroundClip:'border-box',
-            transition:'all 0.5s ease',
-            maxWidth:'250px'
-          }}
+          backgroundColor: "#252525",
+          color: "white",
+          backgroundClip: "border-box",
+          transition: "all 0.5s ease",
+          maxWidth: "250px",
+          boxSizing: "border-box",
+          padding: "0 10px",
+        }}
         textColor="secondary"
         onChange={handleChange}
         aria-label="Vertical tabs example"
-        sx={{ borderRight: 1, borderColor: "divider", }}
+        sx={{ borderRight: 1, borderColor: "divider" }}
       >
         {children}
       </Tabs>
-  )
-})
+    );
+  }
+);
 
 export function a11yProps(index: number) {
   return {
@@ -82,12 +89,15 @@ export function a11yProps(index: number) {
 }
 
 interface CustomVerticalTabsProps extends PropsWithChildren {
-
+  beforeLabels?: React.ReactNode;
   labels: React.ReactNode;
+  afterLabels?: React.ReactNode;
 }
 
 export const CustomVerticalTabs: FC<CustomVerticalTabsProps> = ({
+  beforeLabels,
   labels,
+  afterLabels,
   children,
 }) => {
   return (
@@ -96,16 +106,29 @@ export const CustomVerticalTabs: FC<CustomVerticalTabsProps> = ({
         flexGrow: 1,
         bgcolor: "background.paper",
         display: "flex",
-        height:'70vh',
-        borderRadius:'10px',
-        boxShadow:'0px 0px 5px lightgray',
-        boxSizing:'border-box',
-        overflow:'hidden'
+        height: "70vh",
+        borderRadius: "10px",
+        boxShadow: "0px 0px 5px lightgray",
+        boxSizing: "border-box",
+        overflow: "hidden",
       }}
     >
-      {labels}
+      <div
+        style={{
+          backgroundColor: "#252525",
+          height: "100%",
+          padding: "15px 10px",
+          boxSizing: "border-box",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "stretch",
+        }}
+      >
+        {beforeLabels}
+        {labels}
+        {afterLabels}
+      </div>
       {children}
     </Box>
   );
 };
-

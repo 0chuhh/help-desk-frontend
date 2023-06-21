@@ -1,4 +1,5 @@
-import TextField from "@mui/material/TextField";
+import { InputBaseProps } from "@mui/material/InputBase";
+import TextField from '@mui/material/TextField';
 import { TextFieldProps, TextFieldVariants} from "@mui/material/TextField";
 import React, {FC} from "react";
 
@@ -7,10 +8,10 @@ interface CustomInputProps  extends Omit<TextFieldProps, 'variant'>{
     required?: boolean,
     fullWidth?: boolean,
     maxLength?: number,
-    variant?:TextFieldVariants
+    variant?:TextFieldVariants,
 }
 
-const CustomInput:FC<CustomInputProps> = ({maxLength, variant = 'outlined' ,...restProps}) => {
+const CustomInput:FC<CustomInputProps> = ({maxLength, variant = 'outlined',...restProps}) => {
   return (
     <TextField
       {...restProps}
