@@ -18,6 +18,10 @@ const TabsLabels: FC<TabsLabelsProps> = React.memo(
       <TabsVertical {...restProps}>
         {labels.map((label, index) => (
           <Tab
+            className="w-100"
+            style={{
+              textAlign:'left'
+            }}
             classes={{
               selected: "selected-tab",
               textColorSecondary: "tab-secondary-text-color",
@@ -29,7 +33,7 @@ const TabsLabels: FC<TabsLabelsProps> = React.memo(
                 style={{ transformOrigin: "0 0 0" }}
                 timeout={(index + 1) * 300}
               >
-                <div>{label.name}</div>
+                <div className="w-100">{label.name}</div>
               </Grow>
             }
             value={label.id}

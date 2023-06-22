@@ -15,6 +15,7 @@ const TabsToolbar: FC<TabsToolbarProps> = ({ onCreateType, searchFAQs, onSearchC
       <ToolbarSearch onChange={onSearchChange} searchFAQs={searchFAQs}/>
       <Gap/>
       <ToolbarModal onCreateType={onCreateType}/>
+      <Gap/>
     </>
   );
 };

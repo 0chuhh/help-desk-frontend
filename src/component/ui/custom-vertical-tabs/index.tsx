@@ -58,10 +58,12 @@ export const TabsVertical: FC<TabsVerticalProps> = React.memo(
         TabIndicatorProps={{
           style: {
             backgroundColor: "#f90",
+            
           },
         }}
         value={value}
         style={{
+          width:'100%',
           backgroundColor: "#252525",
           color: "white",
           backgroundClip: "border-box",
