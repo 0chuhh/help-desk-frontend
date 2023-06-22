@@ -5,15 +5,17 @@ import { useDebounce } from "hooks/useDebounce";
 
 interface ToolbarSearchProps {
   searchFAQs: (query: string) => void;
+  onChange:()=>void
 }
 
-const ToolbarSearch: FC<ToolbarSearchProps> = ({ searchFAQs }) => {
+const ToolbarSearch: FC<ToolbarSearchProps> = ({ searchFAQs, onChange }) => {
   const [searchQuery, setSearchQuery] = useState<string>("");
 
   const debouncedSearchValue = useDebounce(searchQuery, 700);
 
   const handleChangeSearchValue = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
+    onChange()
   };
 
   useEffect(() => {

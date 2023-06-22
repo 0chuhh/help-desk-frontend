@@ -5,6 +5,7 @@ import CustomCard from "component/ui/custom-card";
 import {
   TabPanel,
 } from "component/ui/custom-vertical-tabs";
+import { Typography } from '@mui/material';
 
 interface TabPanelsListProps{
     types:IType[],
@@ -14,7 +15,7 @@ interface TabPanelsListProps{
 const TabPanelsList:FC<TabPanelsListProps> = ({types, FAQs, currentTab}) => {
   return (
     <>
-    {
+    {FAQs.length>0?
         types.map((type, index) => (
             <TabPanel key={type.id + "tabPanel"} index={type.id} value={currentTab}>
               {FAQs.filter((faq) => faq.type === type.id).map((faq) => (
@@ -32,7 +33,8 @@ const TabPanelsList:FC<TabPanelsListProps> = ({types, FAQs, currentTab}) => {
               ))}
             </TabPanel>
           ))
-      
+      :
+      <Typography className='w-100' color={'lightgray'} align='center'>Не найдено</Typography>
     }
     </>
   )

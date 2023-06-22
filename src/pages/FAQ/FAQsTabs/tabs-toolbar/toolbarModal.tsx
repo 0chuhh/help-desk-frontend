@@ -20,6 +20,7 @@ const ToolbarModal: FC<ToolbarModalProps> = ({ onCreateType }) => {
     <>
       {isStaff && (
         <Button
+          fullWidth
           onClick={openModal}
           variant="contained"
           style={{

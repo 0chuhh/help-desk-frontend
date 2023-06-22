@@ -47,6 +47,10 @@
   color:#f90 !important
 }
 
+.circular-progress-color{
+  color:#f90 !important
+}
+
 .h-center, .v-center, .column{
   display: flex;
 }
@@ -61,4 +65,10 @@
 
 .column{
   flex-direction: column;
+}
+.w-100{
+  width: 100%;
+} 
+.h-100{
+  height: 100%;
 }

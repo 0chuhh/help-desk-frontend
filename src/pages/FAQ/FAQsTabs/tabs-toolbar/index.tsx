@@ -7,11 +7,12 @@ import Gap from "component/ui/gap";
 interface TabsToolbarProps {
   onCreateType: (type: IType) => void;
   searchFAQs: (query: string) => void;
+  onSearchChange:()=>void
 }
-const TabsToolbar: FC<TabsToolbarProps> = ({ onCreateType, searchFAQs }) => {
+const TabsToolbar: FC<TabsToolbarProps> = ({ onCreateType, searchFAQs, onSearchChange }) => {
   return (
     <>
-      <ToolbarSearch searchFAQs={searchFAQs}/>
+      <ToolbarSearch onChange={onSearchChange} searchFAQs={searchFAQs}/>
       <Gap/>
       <ToolbarModal onCreateType={onCreateType}/>
     </>

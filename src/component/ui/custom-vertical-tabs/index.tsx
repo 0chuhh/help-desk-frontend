@@ -103,6 +103,8 @@ export const CustomVerticalTabs: FC<PropsWithChildren> = React.memo(({
         flexGrow: 1,
         bgcolor: "background.paper",
         display: "flex",
+        justifyContent:'space-between',
+        alignItems:'center',
         height: "70vh",
         borderRadius: "10px",
         boxShadow: "0px 0px 5px lightgray",
