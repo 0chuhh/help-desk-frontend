@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import CustomCard from "component/ui/custom-card";
 import {
   CustomVerticalTabs,
@@ -8,33 +8,31 @@ import { IFAQ } from "models/IFAQ";
 import { IType } from "models/IType";
 import api from "services/api";
 import TabsLabels from "./tabsLabels";
-import CreateFAQTypeModal from "./createFAQTypeModal";
-import CustomInput from "component/ui/custom-input";
-import SearchIcon from "@mui/icons-material/Search";
-import { Button } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
-import Gap from "component/ui/gap";
-import useStaffStatus from "hooks/useStaffStatus";
+
+
+import TabPanelsList from "./tabPanelsList";
+import TabsToolbar from "./tabs-toolbar";
 
 const FAQsTabs = () => {
-  const isStaff = useStaffStatus();
-
+  const [fullFAQs, setFullFAQs] = useState<IFAQ[]>([]);
   const [FAQs, setFAQs] = useState<IFAQ[]>([]);
+  const [fullTypes, setFullTypes] = useState<IType[]>([]);
   const [types, setTypes] = useState<IType[]>([]);
   const [currentTab, setCurrentTab] = useState<number>(1);
-  const [isModalShowed, setIsModalShowed] = useState<boolean>(false);
 
-  const openModal = () => setIsModalShowed(true);
-  const closeModal = () => setIsModalShowed(false);
+  
 
-  const getFAQ = async () => {
-    const FAQresponse: IFAQ[] = await api.faq.getFAQ();
-    setFAQs(FAQresponse);
-  };
 
   const getTypes = async () => {
     const typesResponse: IType[] = await api.types.getTypes();
+    setFullTypes(typesResponse)
     setTypes(typesResponse);
+  };
+
+  const getFAQ = async () => {
+    const FAQresponse: IFAQ[] = await api.faq.getFAQ();
+    setFullFAQs(FAQresponse)
+    setFAQs(FAQresponse);
   };
 
   const onCreateType = (type: IType) => {
@@ -48,79 +46,62 @@ const FAQsTabs = () => {
     if (typeof newValue !== "string") setCurrentTab(newValue);
   };
 
+ 
+  const searchFAQs = async (query:string) =>{
+    console.log(`'${query}'`, query === '')
+      if(query === ''){
+        if (fullTypes.length>0 && fullFAQs.length>0) {
+          setTypes(fullTypes) 
+          setFAQs(fullFAQs)
+        }
+      }else{
+        const FAQresponse: IFAQ[] = await api.faq.getFAQ(query);
+          let tempTypes = fullTypes.filter(type=>FAQresponse.map(faq=>faq.type).includes(type.id))
+          setTypes(tempTypes)
+          setFAQs(FAQresponse);
+      }
+        
+  }
+
+
+
+
   useEffect(() => {
+    getTypes()
     getFAQ();
-    getTypes();
   }, []);
+
 
   return (
     <CustomVerticalTabs
-      beforeLabels={
-        <>
-          <CustomInput
-            placeholder="поиск..."
-            size="small"
-            style={{
-              color: "#fff",
-            }}
-            InputProps={{
-              startAdornment: <SearchIcon />,
-              style: {
-                color: "#fff",
-                fontSize: "0.8rem",
-                backgroundColor: "#000",
-                borderColor: "#fff",
-              },
-            }}
-          />
-          <Gap />
-          {isStaff && (
-            <Button
-              onClick={openModal}
-              variant="contained"
-              style={{
-                fontSize: "0.7rem",
-                color: "#fff",
-                backgroundColor:'#f90'
-              }}
-              endIcon={<AddIcon />}
-            >
-              Добавить
-            </Button>
-          )}
-        </>
-      }
-      labels={
+     
+    >
+      <div
+        style={{
+          backgroundColor: "#252525",
+          height: "100%",
+          padding: "15px 10px",
+          boxSizing: "border-box",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "stretch",
+        }}
+      >
+          
+        
+        <TabsToolbar onCreateType={onCreateType} searchFAQs={searchFAQs}/>
+
         <TabsLabels
           labels={types}
           value={currentTab}
           handleChange={handleChangeTab}
         />
-      }
-    >
-      {types.map((type, index) => (
-        <TabPanel key={type.id + "tabPanel"} index={type.id} value={currentTab}>
-          {FAQs.filter((faq) => faq.type === type.id).map((faq) => (
-            <CustomCard
-              key={faq.id + "faq"}
-              style={{ margin: "20px 0" }}
-              button={{
-                label: "подробнее",
-                link: `/frequently-asked-questions/${faq.id}`,
-              }}
-            >
-              {faq.name}
-              <div>{faq.description}</div>
-            </CustomCard>
-          ))}
-        </TabPanel>
-      ))}
 
-      <CreateFAQTypeModal
-        open={isModalShowed}
-        handleClose={closeModal}
-        onCreate={onCreateType}
-      />
+
+      </div>
+      <TabPanelsList types={types} FAQs={FAQs} currentTab={currentTab}/>
+
+      
     </CustomVerticalTabs>
   );
 };

@@ -21,4 +21,4 @@ const CustomInput:FC<CustomInputProps> = ({maxLength, variant = 'outlined',...re
   );
 }
 
-export default CustomInput;
+export default React.memo(CustomInput);

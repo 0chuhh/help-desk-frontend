@@ -1,8 +1,7 @@
-import { Button, InputAdornment, Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import FAQsTabs from "./FAQsTabs";
 import useStaffStatus from "hooks/useStaffStatus";
-
 
 const FAQ = () => {
   const isStaff = useStaffStatus();
@@ -20,14 +19,7 @@ const FAQ = () => {
           <Button variant="contained">Создать</Button>
         </Link>
       )}
-      <div
-        style={{
-          position: "relative",
-        }}
-      >
-        
-        <FAQsTabs />
-      </div>
+      <FAQsTabs />
     </div>
   );
 };

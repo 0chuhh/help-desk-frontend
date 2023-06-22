@@ -39,4 +39,4 @@ const CreateFAQTypeModal: FC<CreateFAQTypeModalProps> = ({
   );
 };
 
-export default CreateFAQTypeModal;
+export default React.memo(CreateFAQTypeModal);

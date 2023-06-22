@@ -88,18 +88,15 @@ export function a11yProps(index: number) {
   };
 }
 
-interface CustomVerticalTabsProps extends PropsWithChildren {
-  beforeLabels?: React.ReactNode;
-  labels: React.ReactNode;
-  afterLabels?: React.ReactNode;
-}
 
-export const CustomVerticalTabs: FC<CustomVerticalTabsProps> = ({
-  beforeLabels,
-  labels,
-  afterLabels,
+let renderCount = 0;
+export const CustomVerticalTabs: FC<PropsWithChildren> = React.memo(({
   children,
 }) => {
+  
+    renderCount += 1;
+    console.log(`renderCount: `, renderCount);
+  
   return (
     <Box
       sx={{
@@ -113,22 +110,7 @@ export const CustomVerticalTabs: FC<CustomVerticalTabsProps> = ({
         overflow: "hidden",
       }}
     >
-      <div
-        style={{
-          backgroundColor: "#252525",
-          height: "100%",
-          padding: "15px 10px",
-          boxSizing: "border-box",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "stretch",
-        }}
-      >
-        {beforeLabels}
-        {labels}
-        {afterLabels}
-      </div>
       {children}
     </Box>
   );
-};
+});

@@ -11,7 +11,7 @@ interface TabsLabelsProps extends TabsVerticalProps {
   labels: IType[];
 }
 
-const TabsLabels: FC<TabsLabelsProps> = ({ labels, ...restProps }) => {
+const TabsLabels: FC<TabsLabelsProps> = React.memo(({ labels, ...restProps }) => {
   return (
     <TabsVertical {...restProps}>
       {labels.map((label, index) => (
@@ -28,6 +28,6 @@ const TabsLabels: FC<TabsLabelsProps> = ({ labels, ...restProps }) => {
       ))}
     </TabsVertical>
   );
-};
+});
 
 export default React.memo(TabsLabels);

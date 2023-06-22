@@ -2,7 +2,11 @@ import { IFAQ, IFAQFile } from "models/IFAQ";
 import axios from "../axios";
 
 const endpoints = {
-    getFAQ: () => axios.get<IFAQ[]>('faq/').then(response=>response.data),
+    getFAQ: (name?:string) => axios.get<IFAQ[]>('faq/',{
+        params:{
+            search:name
+        }
+    }).then(response=>response.data),
     getFAQbyId: (id:number) => axios.get<IFAQ>(`faq/${id}/`).then(response=>response.data),
     postFAQ:(faq:IFAQ) => axios.post<IFAQ>('faq/',faq,{
         headers:{
