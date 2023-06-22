@@ -13,6 +13,8 @@ const endpoints = {
             'Content-Type':'application/json'
         }
     }).then(response=>response.data),
+    deleteFAQbyId: (id:number) => axios.delete<IFAQ>(`faq/${id}/`),
+
     getFAQfilesByFAQId: (id:number) => axios.get<IFAQFile[]>(`faq-files/${id}/by_faq/`).then(response=>response.data),
     postFAQfilesByFAQId: (id:number, files:FormData) => axios.post<IFAQFile[]>(`faq-files/${id}/by_faq/`,
         files,{

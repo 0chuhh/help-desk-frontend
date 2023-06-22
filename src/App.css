@@ -50,7 +50,9 @@
 .circular-progress-color{
   color:#f90 !important
 }
-
+.d-flex{
+  display: flex;
+}
 .h-center, .v-center, .column{
   display: flex;
 }

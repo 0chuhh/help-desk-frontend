@@ -9,7 +9,7 @@ import { IType } from "models/IType";
 import api from "services/api";
 import TabsLabels from "./tabsLabels";
 
-import TabPanelsList from "./tabPanelsList";
+import TabPanelsList from "./tab-panels-list";
 import TabsToolbar from "./tabs-toolbar";
 import { CircularProgress } from "@mui/material";
 import Gap from "component/ui/gap";
@@ -64,6 +64,11 @@ const FAQsTabs = () => {
     }
   };
 
+  const onDeleteFAQ = (faq:IFAQ) => {
+    setFAQs(prev=>prev.filter(f=>f.id !== faq.id))
+    setFullFAQs(prev=>prev.filter(f=>f.id !== faq.id))
+  }
+
   useEffect(() => {
     getTypes();
     getFAQ();
@@ -105,7 +110,7 @@ const FAQsTabs = () => {
         )}
       </div>
       {!isLoading && (
-        <TabPanelsList types={types} FAQs={FAQs} currentTab={currentTab} />
+        <TabPanelsList onDelete={onDeleteFAQ} types={types} FAQs={FAQs} currentTab={currentTab} />
       )}
       {isLoading && (
         <div className="h-center v-center w-100 h-100">
