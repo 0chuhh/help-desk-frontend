@@ -6,6 +6,7 @@ import { Typography } from "@mui/material";
 import TabPanelsItem from "./tabPanelsItem";
 import useStaffStatus from "hooks/useStaffStatus";
 import api from 'services/api'
+import Grow from '@mui/material/Grow';
 interface TabPanelsListProps {
   types: IType[];
   FAQs: IFAQ[];
@@ -33,12 +34,21 @@ const TabPanelsList: FC<TabPanelsListProps> = ({ types, FAQs, currentTab, onDele
             index={type.id}
             value={currentTab}
           >
-            {FAQs.filter((faq) => faq.type === type.id).map((faq) => (
+            {FAQs.filter((faq) => faq.type === type.id).map((faq,index) => (
+              <Grow
+              key={faq.id+'faq'}
+              in={true}
+              style={{ transformOrigin: '0 0 0' }}
+              timeout={index<5?(index+1)*500:500}
+            >
+              <div>
               <TabPanelsItem
                 onDelete={isStaff ? () => deleteItem(faq) : undefined}
                 onEdit={isStaff ? () => editItem(faq) : undefined}
                 faq={faq}
               />
+              </div>
+              </Grow>
             ))}
           </TabPanel>
         ))

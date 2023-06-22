@@ -89,14 +89,9 @@ export function a11yProps(index: number) {
 }
 
 
-let renderCount = 0;
 export const CustomVerticalTabs: FC<PropsWithChildren> = React.memo(({
   children,
 }) => {
-  
-    renderCount += 1;
-    console.log(`renderCount: `, renderCount);
-  
   return (
     <Box
       sx={{
