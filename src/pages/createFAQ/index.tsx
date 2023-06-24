@@ -14,7 +14,7 @@ import { useNavigate } from "react-router";
 import CustomFileInput from "component/ui/custom-file-input";
 import FileList from "component/ui/file-list";
 const CreateFAQ = () => {
-  
+
   const navigate = useNavigate()
   const [droppedFiles, setDroppedFiles] = useState<File[]>([]);
 
@@ -29,34 +29,34 @@ const CreateFAQ = () => {
     setTypes(typesResponse);
   };
 
-  const handleChangeHtml = (html: string) => {
+  const handleChangeHtml = useCallback((html: string) => {
     setHtml(html);
-  };
-  const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
+  }, [setHtml]);
+  const handleChangeName = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
-  };
+  }, [setName]);
 
-  const handleChangeDescription = (
+  const handleChangeDescription = useCallback((
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     setDesription(event.target.value);
-  };
+  }, [setDesription]);
 
-  const handleChangeSelect = (event: SelectChangeEvent<unknown>) => {
+  const handleChangeSelect = useCallback((event: SelectChangeEvent<unknown>) => {
     setSelectedType(event.target.value);
-  };
+  }, [setSelectedType]);
 
 
-   const createNewFAQ:React.FormEventHandler<HTMLFormElement> = async (event) => {
+  const createNewFAQ: React.FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault()
-    const faq:IFAQ = await api.faq.postFAQ({name, description, html, type:Number(selectedType)});
+    const faq: IFAQ = await api.faq.postFAQ({ name, description, html, type: Number(selectedType) });
     const formData = new FormData();
     droppedFiles.forEach(file => {
       formData.append("file", file) // check this out for more info: https://developer.mozilla.org/en-US/docs/Web/API/FormData/append#example
-   });
-   if(faq.id) await api.faq.postFAQfilesByFAQId(faq.id, formData);
-  //  navigate(`/frequently-asked-questions/${faq.id}`);
-    
+    });
+    if (faq.id) await api.faq.postFAQfilesByFAQId(faq.id, formData);
+    navigate(`/frequently-asked-questions/${faq.id}`);
+
   }
 
 
@@ -64,57 +64,58 @@ const CreateFAQ = () => {
     (item: { files: any[] }) => {
       if (item) {
         const files = item.files;
-        setDroppedFiles(prev=>[...prev, ...files]);
+        setDroppedFiles(prev => [...prev, ...files]);
         console.log(item, "files");
       }
     },
     [setDroppedFiles]
   );
 
-  const handleDeleteFile = (file:File)=>{
-    setDroppedFiles(droppedFiles.filter(fileEl=>fileEl!==file))
+  const handleDeleteFile = (file: File) => {
+    setDroppedFiles(droppedFiles.filter(fileEl => fileEl !== file))
   }
-  
-  useEffect(()=>{
+
+  useEffect(() => {
     getTypes()
-  },[])
+  }, [])
   return (
     <div className="container">
-      <form  onSubmit={createNewFAQ}>
-      <Button type="submit" variant="contained">Создать</Button>
-      <Gap />
-      <CustomInput
-        required
-        onChange={handleChangeName}
-        value={name}
-        fullWidth
-        label={"Название"}
-      />
-      <Gap />
-      <CustomInput
-        required
-        onChange={handleChangeDescription}
-        value={description}
-        multiline
-        fullWidth
-        label={"Описание"}
-      />
-      <Gap />
-      <CustomSelect required value={selectedType} onChange={handleChangeSelect} fullWidth label="Категория">
-        {
-          types?.map(type=>
+      <form onSubmit={createNewFAQ}>
+        <Button type="submit" variant="contained">Создать</Button>
+        <Gap />
+        <CustomInput
+          required
+          maxLength={50}
+          onChange={handleChangeName}
+          value={name}
+          fullWidth
+          label={"Название"}
+        />
+        <Gap />
+        <CustomInput
+          required
+          onChange={handleChangeDescription}
+          value={description}
+          multiline
+          fullWidth
+          label={"Описание"}
+        />
+        <Gap />
+        <CustomSelect required value={selectedType} onChange={handleChangeSelect} fullWidth label="Категория">
+          {
+            types?.map(type =>
               <MenuItem key={type?.id} value={type?.id}>{type?.name}</MenuItem>
             )
-        }
-      </CustomSelect>
-      <Gap />
-      <Editor value={html} onChange={handleChangeHtml} />
-      <Gap/>
-      <CustomFileInput onDrop={handleFileDrop}/>
-      <FileList files={droppedFiles} onDelete={handleDeleteFile}/>
+          }
+        </CustomSelect>
+        <Gap />
+        <Editor value={html} onChange={handleChangeHtml} />
+        <Gap />
+        <CustomFileInput onDrop={handleFileDrop} />
+        <FileList files={droppedFiles} onDelete={handleDeleteFile} />
       </form>
     </div>
   );
 };
 
-export default CreateFAQ;
+export default React.memo(CreateFAQ);

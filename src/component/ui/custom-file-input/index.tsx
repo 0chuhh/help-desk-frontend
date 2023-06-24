@@ -3,6 +3,7 @@ import type { DropTargetMonitor } from 'react-dnd'
 import { useDrop } from 'react-dnd'
 import { NativeTypes } from 'react-dnd-html5-backend'
 import UploadFileIcon from '@mui/icons-material/UploadFile';
+import React from 'react';
 
 
 
@@ -54,4 +55,4 @@ const CustomFileInput:FC<CustomFileInputProps> = ({onDrop}) => {
   )
 }
 
-export default CustomFileInput
+export default React.memo(CustomFileInput)

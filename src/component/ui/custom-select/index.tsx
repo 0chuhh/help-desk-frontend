@@ -27,4 +27,4 @@ const CustomSelect: FC<CustomSelectProps> = ({id, label, fullWidth, children, ..
   );
 };
 
-export default CustomSelect;
+export default React.memo(CustomSelect);

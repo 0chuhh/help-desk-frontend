@@ -70,4 +70,4 @@ const Editor: FC<EditorProps> = ({ value, onChange }) => {
   );
 };
 
-export default Editor;
+export default React.memo(Editor);
